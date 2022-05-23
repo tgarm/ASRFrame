@@ -140,6 +140,7 @@ class DCNN2D(AcousticModel):
             load_model = os.path.abspath(load_model)
             model_helper.load(load_model)
 
+        print("start model_helper.fit")
         model_helper.fit(vloader, epoch=-1, use_ctc=True)
 
 class DCBNN2D(AcousticModel):

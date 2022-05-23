@@ -1,5 +1,6 @@
 from keras import backend as K
-from keras.engine.topology import Layer
+#from keras.engine.topology import Layer
+from tensorflow.keras.layers import Layer
 
 class Position_Embedding(Layer):
     '''

@@ -212,7 +212,7 @@ class VadExtract():
             param_dict ： 包含抽取过程中的参数，调用plot函数时传入
         '''
         y = y.astype(np.float32)
-        rms = librosa.feature.rmse(y=y, hop_length=self.hop_length)  # rms envelope
+        rms = librosa.feature.rms(y=y, hop_length=self.hop_length)  # tgarm: librosa drop rmse in favor of rms
         max_rms = np.max(rms)  # 求个最大值做特征
         length = rms.shape[0]  # 总个数
         avg_rms = np.mean(rms)

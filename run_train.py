@@ -14,14 +14,24 @@ thchs = Thchs30(config.thu_datapath) # 同质性太高，不过好拟合，可�
 prime = Primewords(config.prime_datapath)
 aishell = AiShell(config.aishell_datapath) # 据说数据集很差，不用该数据训练
 z200 = Z200(config.z200_datapath)
-wiki = TextDataGenerator(config.wiki_datapath)
+#DXL:only acoustics wiki = TextDataGenerator(config.wiki_datapath)
 
 
 '''用于控制GPU'''
 import os
+import tensorflow as tf
 # os.environ["CUDA_VISIBLE_DEVICES"] = ""#不适用GPU
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"#使用一个GPU
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"#使用0/1两个GPU
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+        print(len(gpus), " physical GPUs,", len(logical_gpus), "logical GPUs")
+    except RuntimeError as e:
+        print(e)
 
 
 '''语言模型——————————————————————————————————————————————————————————————————————————————————'''
@@ -30,7 +40,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"#使用一个GPU
 # DCNN1D.train([thchs],None)
 
 '''效果目前来看很不错，但是目前（2019年7月9日）下语料不足，貌似过拟合了，需要扩充语料后再尝试'''
-SOMMalpha.train(wiki,None)
+#DXL  SOMMalpha.train(wiki,None)
 # SOMMalpha.train(wiki,os.path.join(config.language_model_dir,"SOMMalpha_epoch_484_step_242000.h5"))
 
 # SOMMword.train([thchs],None) # 注意SOMMword的train方法版本有点旧

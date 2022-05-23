@@ -4,7 +4,8 @@ from core.base_model import LanguageModel
 from util.reader import TextDataGenerator,TextLoader2,VoiceDatasetList,TextLoader
 
 from util.mapmap import PinyinMapper,ChsMapper
-from keras.preprocessing.sequence import pad_sequences
+# from keras.preprocessing.sequence import pad_sequences
+from keras.utils.data_utils import pad_sequences
 
 class SOMMword(LanguageModel):
     '''词粒度级的SOMM

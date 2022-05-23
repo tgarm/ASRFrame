@@ -60,11 +60,11 @@ class CTC_Batch_Cost():
             Tensor with shape (samples,1) containing the
                 CTC loss of each element.
         """
-        label_length = tf.to_int32(tf.squeeze(label_length, axis=-1))
-        input_length = tf.to_int32(tf.squeeze(input_length, axis=-1))
-        sparse_labels = tf.to_int32(K.ctc_label_dense_to_sparse(y_true, label_length))
+        label_length = tf.cast(tf.squeeze(label_length, axis=-1), tf.int32)
+        input_length = tf.cast(tf.squeeze(input_length, axis=-1), tf.int32)
+        sparse_labels = tf.cast(K.ctc_label_dense_to_sparse(y_true, label_length), tf.int32)
 
-        y_pred = tf.log(tf.transpose(y_pred, perm=[1, 0, 2]) + 1e-7)
+        y_pred = tf.compat.v1.log(tf.transpose(y_pred, perm=[1, 0, 2]) + 1e-7)
 
         # 注意这里的True是为了忽略解码失败的情况，此时loss会变成nan直到下一个个batch
         return tf.expand_dims(ctc.ctc_loss(inputs=y_pred,

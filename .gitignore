@@ -111,3 +111,8 @@ venv.bak/
 .vscode/
 
 *.zip
+
+
+# project specific
+/loss_plot/
+/summary/

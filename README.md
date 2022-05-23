@@ -12,6 +12,9 @@
 
 【2020年1月23日】本项目废弃
 
+
+【2022年5月17日】fork, 并做微小调整：用*.env* 存放目录配置
+
 # 介绍
 项目链接：https://github.com/sailist/ASRFrame
 

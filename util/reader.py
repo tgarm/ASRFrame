@@ -12,7 +12,7 @@ from feature.mel_feature import MelFeature2
 from util.audiotool import VadExtract
 
 from keras.utils import Sequence
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.utils.np_utils import to_categorical
 from util.mapmap import PinyinMapper,ErrPinyinMapper
 
@@ -25,6 +25,8 @@ filter_char = list('''[!"'\(\),\.\?@q~“”… 　、。」！（），？Ａ�
 
 class VoiceDataGenerator():
     def __init__(self,path):
+        if not os.path.exists(path):
+            print("path not exists", path)
         assert os.path.exists(path), "path not exists!"
         self.set_path(path)
 
@@ -75,7 +77,8 @@ class Z200(VoiceDataGenerator):
         path = os.path.abspath(self.path)
         root = os.listdir(path)
         root = [os.path.join(path,i) for i in root]
-        root = [os.path.join(i,"session01") for i in root if os.path.isdir(i)]
+        # DXL: "session01" not found in dataset downloaded
+        # root = [os.path.join(i,"session01") for i in root if os.path.isdir(i)]
         fs = []
 
         for sub_dir in root:
@@ -510,7 +513,7 @@ class VoiceLoader(DataLoader):
         :return:
         '''
         result = []
-        start = time.clock()
+        start = time.perf_counter()
 
         audio_lens = []
         label_lens = []
@@ -552,7 +555,7 @@ class VoiceLoader(DataLoader):
 
             print(f"\nmax label len = {max_label_len}, min label len = {min_label_len}, pinpin coverage:{len(py_set)}")
 
-        end = time.clock()
+        end = time.perf_counter()
 
         print(f"result from {self.set_size} sample, used {end-start} sec")
 

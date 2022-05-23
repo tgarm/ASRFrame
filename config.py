@@ -1,6 +1,10 @@
 import platform
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 project_path = os.path.split(os.path.realpath(__file__))[0] #
 
 thu_datapath = None # 目录下应该有data/ dev/ 等目录
@@ -12,12 +16,12 @@ stcmd_datapath = None # 目录下应该直接是音频文件
 wiki_datapath = None
 
 if platform.system() == "Linux":
-    thu_datapath = "/data/voicerec/thchs30/data_thchs30"
-    z200_datapath = "/data/voicerec/z200"
-    aishell_datapath = "/data/voicerec/ALShell-1/data_aishell"
-    prime_datapath = "/data/voicerec/Primewords Chinese Corpus Set 1/primewords_md_2018_set1"
-    stcmd_datapath = "/data/voicerec/Free ST Chinese Mandarin Corpus/ST-CMDS-20170001_1-OS"
-    wiki_datapath = "/data/voicerec/wiki/split_corpus"
+    thu_datapath = os.getenv("THU_DATAPATH")
+    z200_datapath = os.getenv("Z200_DATAPATH")
+    aishell_datapath = os.getenv("AISHELL_DATAPATH")
+    prime_datapath = os.getenv("PRIME_DATAPATH")
+    stcmd_datapath = os.getenv("STCMD_DATAPATH")
+    wiki_datapath = os.getenv("WIKI_DATAPATH")
 elif platform.system() == "Windows":
     thu_datapath = r"C:\E\jupyter_notebook\voice_reco\Dataset\thchs30"
     z200_datapath = r"C:\E\jupyter_notebook\voice_reco\Dataset\z200"

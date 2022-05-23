@@ -141,7 +141,7 @@ class Dataset:
                 # os.remove(txt_fn)
                 print(f"\n{txt_fn} may not have the wav file {wav_fn}, please check it.")
                 continue
-            if line is None and os.path.exists(wav_fn): # 没有中文但是有wav文件
+            if line is None and os.path.exists(wav_fn): # 没有中文但是有wav文件, DXL: remove?
                 # os.remove(wav_fn)
                 print(f"\n{wav_fn} not have the labels, it will be deleted.")
                 continue
@@ -255,7 +255,7 @@ class Z200(Dataset):
         path = os.path.abspath(self.path)
         root = os.listdir(path)
         root = [os.path.join(path, i) for i in root]
-        root = [os.path.join(i, "session01") for i in root if os.path.isdir(i)]
+#        root = [os.path.join(i, "session01") for i in root if os.path.isdir(i)]
         fs = []
 
         for sub_dir in root:
